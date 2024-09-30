@@ -10,7 +10,6 @@ export class EnderecoController {
     constructor (private readonly enderecoService: EnderecoService) { }
 
 @Get()
-@UseGuards(JwtAuthGuard)
 @HttpCode(HttpStatus.OK)
 findAll(): Promise<Endereco[]> {
     return this.enderecoService.findAll();

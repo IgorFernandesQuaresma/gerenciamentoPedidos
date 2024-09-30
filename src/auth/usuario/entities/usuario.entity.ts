@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, Matches, MinLength } from "class-validator"
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
-import { Role } from "../../roles/role.enum"
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Endereco } from "../../../endereco/entities/endereco.entity"
 
 
 @Entity({name: "tb_usuarios"})
@@ -18,13 +18,10 @@ export class Usuario {
     @Column({length: 255, nullable: false })
     usuario: string
 
-    @Column({
-        type: 'enum', 
-        enum: Role,    
-        default: Role.User,
-        array: true
-})
-roles: Role[];
+    @IsNotEmpty()
+    @Column({ length: 50, default: 'user' }) // Define o tipo de usuário padrão como 'user'
+    tipo: string;
+
 
     @MinLength(8)
     @IsNotEmpty()
@@ -36,4 +33,8 @@ roles: Role[];
 
     @Column({ type: 'blob', nullable: true }) 
     foto: Buffer;
+
+    @OneToOne(() => Endereco, (endereco) => endereco.usuario, { cascade: false })
+    @JoinColumn()  
+    endereco: Endereco;
 }

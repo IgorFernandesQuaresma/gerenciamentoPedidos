@@ -1,5 +1,6 @@
 import { IsNotEmpty } from "class-validator";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Usuario } from "../../auth/usuario/entities/usuario.entity";
 
 
 
@@ -27,4 +28,7 @@ export class Endereco {
         @IsNotEmpty()
         @Column({length: 100, nullable: false})
         Cidade: string;
+
+        @OneToOne(() => Usuario, (usuario) => usuario.endereco)
+        usuario: Usuario;
 }

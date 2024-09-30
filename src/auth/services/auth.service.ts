@@ -50,7 +50,7 @@ export class AuthService{
             nome: buscarUsuario.nome,
             usuario: usuarioLogin.usuario,
             senha: '',
-            roles: buscarUsuario.roles,
+            tipo: buscarUsuario.tipo,
             token: `Bearer ${this.jwtService.sign(payload)}`,
         };
 

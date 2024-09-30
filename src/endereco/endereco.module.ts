@@ -1,14 +1,15 @@
 import { Module } from "@nestjs/common";
-import { Servico } from "./entities/servico.entity";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { ServicoService } from "./service/servico.service";
-import { ServicoController } from "./controller/servico.controller";
+import { Endereco } from "./entities/endereco.entity";
+import { EnderecoService } from "./service/endereco.service";
+import { EnderecoController } from "./controller/endereco.controller";
+
 
 @Module ({
-    imports: [TypeOrmModule.forFeature([Servico])],
-    providers: [ServicoService],
-    controllers: [ServicoController],
+    imports: [TypeOrmModule.forFeature([Endereco])],
+    providers: [EnderecoService],
+    controllers: [EnderecoController],
     exports: [TypeOrmModule]
 })
 
-export class ServicoModule {}
+export class EnderecoModule {}

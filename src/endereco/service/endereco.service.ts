@@ -15,7 +15,9 @@ export class EnderecoService{
 
     async findAll(): Promise<Endereco[]> {
         return await this.enderecoRepository.find({
-        
+            relations: {
+                usuario: true
+            }
         });   
     }
 
