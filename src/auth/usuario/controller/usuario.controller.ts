@@ -23,6 +23,12 @@ create(@Body() usuario: Usuario): Promise<Usuario> {
     return this.usuarioService.create(usuario); 
 }
 
+@Post('usuario')
+@HttpCode(HttpStatus.CREATED)
+createUsuarioComEndereco(@Body() usuario: Usuario): Promise<Usuario> {
+    return this.usuarioService.createUsuarioComEndereco(usuario); 
+}
+
 @Put()
 @HttpCode(HttpStatus.CREATED)
 update(@Body() usuario: Usuario): Promise<Usuario> {

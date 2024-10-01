@@ -12,9 +12,41 @@ export class UsuarioService{
     constructor(
         @InjectRepository(Usuario)
         private usuarioRepository: Repository<Usuario>,
-        private bcrypt: Bcrypt
+        private bcrypt: Bcrypt,
+        @InjectRepository(Endereco)
+        private enderecoRepository: Repository<Endereco>,
+        
     ){}
 
+
+    async createUsuarioComEndereco(usuario: Usuario): Promise<Usuario> {
+        let buscarUsuario = await this.findByUsuario(usuario.usuario);
+
+        if (!buscarUsuario) {
+            const novoUsuario = new Usuario();
+            novoUsuario.nome = usuario.nome;
+            novoUsuario.usuario = usuario.usuario;
+            novoUsuario.tipo = usuario.tipo;
+            novoUsuario.senha = await this.bcrypt.criptografarSenha(usuario.senha);
+            
+            const endereco = new Endereco();
+            endereco.Cep = usuario.endereco.Cep;
+            endereco.Rua = usuario.endereco.Rua;
+            endereco.Numero = usuario.endereco.Numero;
+            endereco.Bairro = usuario.endereco.Bairro;
+            endereco.Cidade = usuario.endereco.Cidade;
+
+            // Salvar o endereço primeiro
+            await this.enderecoRepository.save(endereco);
+            
+            // Associar o endereço ao usuário
+            usuario.endereco = endereco;
+
+            // Salvar o usuário
+            return await this.usuarioRepository.save(usuario);
+        }
+        throw new HttpException('Usuário já existe', HttpStatus.BAD_REQUEST);
+    }
 
     async findByUsuario(usuarioname: string): Promise<Usuario | undefined> {
         return await this.usuarioRepository.findOne({
@@ -66,7 +98,11 @@ export class UsuarioService{
         if (!usuarioBusca || !usuario.id) {
             throw new HttpException('Usuario não encontrado!', HttpStatus.NOT_FOUND); 
         }
-        
+
+        if (usuario.senha) {
+        usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha);
+    }
+
         return await this.usuarioRepository.save(usuario);
     }
 
