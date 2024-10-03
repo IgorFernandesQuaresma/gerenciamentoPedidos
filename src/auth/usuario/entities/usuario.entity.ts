@@ -38,7 +38,7 @@ export class Usuario {
     senha: string;
 
     @ApiProperty() 
-    @Column({ type: 'blob', nullable: true }) 
+    @Column({ type: 'bytea', nullable: true }) 
     foto: Buffer;
 
     @ApiProperty({ type: () => Endereco }) 
