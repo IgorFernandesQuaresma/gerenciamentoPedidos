@@ -7,8 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-  .setTitle('Blog Pessoal')
-  .setDescription('Projeto Blog Pessoal')
+  .setTitle('Projeto de gerenciamento')
+  .setDescription('Sistema de gerenciamento de pedidos')
   .setContact("Igor Fernandes","https://ifernandesdev.netlify.app","igor.devfernandes@gmail.com")
   .setVersion('1.0')
   .addBearerAuth()
