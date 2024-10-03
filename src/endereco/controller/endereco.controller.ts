@@ -2,10 +2,14 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPip
 import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
 import { EnderecoService } from "../service/endereco.service";
 import { Endereco } from "../entities/endereco.entity";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 
 
+@ApiTags('Enderecos')
+@UseGuards(JwtAuthGuard)
 @Controller('/enderecos') 
+@ApiBearerAuth()
 export class EnderecoController {
     constructor (private readonly enderecoService: EnderecoService) { }
 

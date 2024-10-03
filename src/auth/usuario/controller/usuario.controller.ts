@@ -1,12 +1,16 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Put, UseGuards } from "@nestjs/common";
 import { Usuario } from "../entities/usuario.entity";
 import { UsuarioService } from "../service/usuario.service";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 
 
 
 
-@Controller('/usuarios') 
+
+@ApiTags('Usuario')
+@Controller('/usuarios')
+@ApiBearerAuth() 
 export class UsuarioController {
     constructor (private readonly usuarioService: UsuarioService) { }
 
