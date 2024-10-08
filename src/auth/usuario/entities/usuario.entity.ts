@@ -38,7 +38,7 @@ export class Usuario {
     senha: string;
 
     @ApiProperty() 
-    @Column({ type: 'bytea', nullable: true }) 
+    @Column({ type: 'binary', nullable: true }) 
     foto: Buffer;
 
     @ApiProperty({ type: () => Endereco }) 

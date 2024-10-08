@@ -16,6 +16,7 @@ export class ProdService implements TypeOrmOptionsFactory {
       },
       synchronize: true,
       autoLoadEntities: true,
+      entities: [__dirname + '/../**/*.entity{.ts,.js}']
       
     };
   }

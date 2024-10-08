@@ -2,6 +2,7 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Post, Put, UseGuards } fro
 import { Usuario } from "../entities/usuario.entity";
 import { UsuarioService } from "../service/usuario.service";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { JwtAuthGuard } from "../../guard/jwt-auth.guard";
 
 
 
@@ -16,6 +17,7 @@ export class UsuarioController {
 
 @Get()
 @HttpCode(HttpStatus.OK)
+@UseGuards(JwtAuthGuard)
 findAll(): Promise<Usuario[]> {
     return this.usuarioService.findAll();
 }
@@ -34,6 +36,7 @@ createUsuarioComEndereco(@Body() usuario: Usuario): Promise<Usuario> {
 }
 
 @Put()
+@UseGuards(JwtAuthGuard)
 @HttpCode(HttpStatus.CREATED)
 update(@Body() usuario: Usuario): Promise<Usuario> {
     return this.usuarioService.update(usuario); 

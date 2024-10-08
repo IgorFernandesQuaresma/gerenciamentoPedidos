@@ -45,12 +45,6 @@ findById(@Param('id', ParseIntPipe) id: number): Promise<Endereco> {
     return this.enderecoService.delete(id);
   }
 
-
-
-
-
-
-
 }
 
 
