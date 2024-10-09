@@ -38,10 +38,10 @@ export class Usuario {
     senha: string;
 
     @ApiProperty()
-    @Column({ type:'bytea',
+    @Column({ 
         nullable: true
      }) 
-    foto: Buffer;
+    foto: string;
 
     @ApiProperty({ type: () => Endereco }) 
     @OneToOne(() => Endereco, (endereco) => endereco.usuario, { cascade: false })

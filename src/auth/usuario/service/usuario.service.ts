@@ -28,7 +28,7 @@ export class UsuarioService{
             novoUsuario.usuario = usuario.usuario;
             novoUsuario.tipo = usuario.tipo;
             novoUsuario.senha = await this.bcrypt.criptografarSenha(usuario.senha);
-            
+
             const endereco = new Endereco();
             endereco.Cep = usuario.endereco.Cep;
             endereco.Rua = usuario.endereco.Rua;
@@ -40,10 +40,10 @@ export class UsuarioService{
             await this.enderecoRepository.save(endereco);
             
             // Associar o endereço ao usuário
-            usuario.endereco = endereco;
+            novoUsuario.endereco = endereco;
 
             // Salvar o usuário
-            return await this.usuarioRepository.save(usuario);
+            return await this.usuarioRepository.save(novoUsuario);
         }
         throw new HttpException('Usuário já existe', HttpStatus.BAD_REQUEST);
     }
@@ -64,12 +64,11 @@ export class UsuarioService{
         });   
     }
 
-    async create(usuario: Usuario): Promise<Usuario> {
-        let buscarUsuario = await this.findByUsuario(usuario.usuario);
+    async create(usuario: Usuario): Promise<Usuario> {let buscarUsuario = await this.findByUsuario(usuario.usuario);
+        
     
         if (!buscarUsuario) {
             usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha);
-            console.log('Senha criptografada para armazenamento:', usuario.senha); // Verifique se o hash está correto
             return await this.usuarioRepository.save(usuario);
         }
         throw new HttpException('Usuário já existe', HttpStatus.BAD_REQUEST);
