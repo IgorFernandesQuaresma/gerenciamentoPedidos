@@ -37,7 +37,7 @@ export class Usuario {
     })
     senha: string;
 
-    @ApiProperty() 
+    @ApiProperty({ type: 'string', format: 'binary', nullable: true })
     @Column({ type: 'binary', nullable: true }) 
     foto: Buffer;
 
