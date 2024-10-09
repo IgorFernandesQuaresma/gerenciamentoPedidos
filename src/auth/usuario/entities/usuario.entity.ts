@@ -37,8 +37,10 @@ export class Usuario {
     })
     senha: string;
 
-    @ApiProperty({ type: 'string', format: 'binary', nullable: true })
-    @Column({ type: 'binary', nullable: true }) 
+    @ApiProperty()
+    @Column({ type: process.env.NODE_ENV === 'production' ? 'bytea' : 'blob',
+        nullable: true
+     }) 
     foto: Buffer;
 
     @ApiProperty({ type: () => Endereco }) 

@@ -12,9 +12,9 @@ import { DevService } from './data/services/dev.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRootAsync({
-	  useClass: ProdService,
+	  useClass: process.env.NODE_ENV === 'producao' ? ProdService : DevService,
     imports: [ConfigModule],
 }),
     EnderecoModule,
