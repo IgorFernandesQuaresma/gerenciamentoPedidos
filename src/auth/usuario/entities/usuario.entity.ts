@@ -38,7 +38,7 @@ export class Usuario {
     senha: string;
 
     @ApiProperty()
-    @Column({ type: process.env.NODE_ENV === 'production' ? 'bytea' : 'blob',
+    @Column({ type:'bytea',
         nullable: true
      }) 
     foto: Buffer;

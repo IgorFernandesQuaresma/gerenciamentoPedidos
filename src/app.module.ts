@@ -14,7 +14,7 @@ import { DevService } from './data/services/dev.service';
   imports: [
     ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRootAsync({
-	  useClass: process.env.NODE_ENV === 'producao' ? ProdService : DevService,
+	  useClass: ProdService,
     imports: [ConfigModule],
 }),
     EnderecoModule,
